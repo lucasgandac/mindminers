@@ -37,6 +37,14 @@ class Subtitle {
         Console.WriteLine(doisTempos[0]);
         DateTime dateValue = DateTime.Parse(doisTempos[0]);
 
+        String dataFormatada;
+        dataFormatada = dateValue.ToString("hh:mm:ss.fff");
+        
+        dateValue = dateValue.AddSeconds(131);
+        dateValue = dateValue.AddHours(-12);
+        string dataFormat = dateValue.ToString("hh:mm:ss.fff");
+        Console.WriteLine(dataFormat);
+
 }
     }
 }
