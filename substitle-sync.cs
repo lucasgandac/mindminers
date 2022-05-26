@@ -44,6 +44,21 @@ class Subtitle {
         dateValue = dateValue.AddHours(-12);
         string dataFormat = dateValue.ToString("hh:mm:ss.fff");
         Console.WriteLine(dataFormat);
+        Console.WriteLine(stringSeparada[1]);
+        Console.WriteLine("");
+        Console.WriteLine("divisao");
+        Console.WriteLine("");
+        foreach (string line in stringSeparada) {
+            numLinha++;
+            Console.WriteLine(line);
+        }
+        string stringFinal = null;
+        for(int j = 0; j < stringSeparada.Length; j++) {
+            stringFinal += stringSeparada[j] + Environment.NewLine;
+        }
+        string string1 = stringSeparada[0] + stringSeparada[1] + stringSeparada[2] +stringSeparada[3];
+        string final = stringFinal + Environment.NewLine;
+        File.WriteAllText("./final.txt", final);  
 
 }
     }
