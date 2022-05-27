@@ -1,65 +1,76 @@
 
 using System;
 using System.IO;  
+using System.Collections.Generic;
 using System. Text;  
   
-namespace Mindminers {
+namespace Mindminers {        
   
 class Subtitle {
-
-
     // Main Method
     static void Main(string[] args)
     {
         string str = "Getting string";
         string path = "./legenda.srt";
         
+        Console.WriteLine("Insira o tempo em segundo");
+        string entrada = Console.ReadLine();
+        double valor = Convert.ToDouble(entrada);
+        Console.WriteLine(valor);
         string text = File.ReadAllText(path);
         string[] lines = text.Split(Environment.NewLine);
         int i = 0 ;
         string[] linhas = text.Split(new string[] { Environment.NewLine + Environment.NewLine },
                                StringSplitOptions.RemoveEmptyEntries);
         string[] stringSeparada = linhas[0].Split(Environment.NewLine);
+        string[] stringSeparada2 = linhas[1].Split(Environment.NewLine);
         int numLinha = 0;
         string tempo = null;
-        //Console.WriteLine(text);
+        List<string> tudoJunto = new List<string>();
+        string[] bloco = linhas;
+        List<string> teste = new List<string>();
 
-        foreach (string line in stringSeparada) {
-            numLinha++;
-            if(numLinha==2){
-                tempo = line;
+        for(i=0; i< linhas.Length; i++){
+            string[] separada = linhas[i].Split(Environment.NewLine);
+            for(int j =0; j < separada.Length;j++){
+                if(j==1){
+                    //Console.WriteLine(separada[j]);
+                    tempo = separada[j];
+                    tempo = tempo.Replace(',', '.');
+                    string[] doisTempos = tempo.Split(" --> ");
+                    DateTime dateValue = DateTime.Parse(doisTempos[0]);
+                    DateTime dateValue2 = DateTime.Parse(doisTempos[1]);
+                    //Console.WriteLine(dateValue.ToString("hh:mm:ss.fff"));
+                    dateValue = dateValue.AddSeconds(valor);
+                    dateValue2 = dateValue2.AddSeconds(valor);
+                    string dataFormat = dateValue.ToString("hh:mm:ss.fff");
+                    string dataFormat2 = dateValue2.ToString("hh:mm:ss.fff");
+                    string substr = dataFormat.Substring(2,10);
+                    string substr2 = dataFormat2.Substring(2,10);
+                    //Console.WriteLine(doisTempos[0].Substring(0,2) + substr );
+                    string tempoSomado = doisTempos[0].Substring(0,2) + substr;
+                    string tempoSomado2 = doisTempos[1].Substring(0,2) + substr2;
+                    separada[1] = tempoSomado + " --> " + tempoSomado2;
+                    separada[1] = separada[1].Replace('.',',');
+                }         
+                teste.Add(separada[j]);
+                //Console.WriteLine(separada.Length);
             }
-            Console.WriteLine(line);
-        }
-        tempo = tempo.Replace(',', '.');
-        str.Replace(',', ' ');       
-        string[] doisTempos = tempo.Split(" --> ");
-        Console.WriteLine(doisTempos[0]);
-        DateTime dateValue = DateTime.Parse(doisTempos[0]);
+                teste.Add(" ");
 
-        String dataFormatada;
-        dataFormatada = dateValue.ToString("hh:mm:ss.fff");
-        
-        dateValue = dateValue.AddSeconds(131);
-        dateValue = dateValue.AddHours(-12);
-        string dataFormat = dateValue.ToString("hh:mm:ss.fff");
-        Console.WriteLine(dataFormat);
-        Console.WriteLine(stringSeparada[1]);
-        Console.WriteLine("");
-        Console.WriteLine("divisao");
-        Console.WriteLine("");
-        foreach (string line in stringSeparada) {
-            numLinha++;
-            Console.WriteLine(line);
+        };
+        Console.WriteLine(linhas[0]);
+        Console.WriteLine(teste[1]);  
+        //Console.WriteLine(bloco[0]);
+        for(int k =0; k < bloco.Length; k++){
+            tudoJunto.Add(bloco[k]);
+            tudoJunto.Add("");
         }
-        string stringFinal = null;
-        for(int j = 0; j < stringSeparada.Length; j++) {
-            stringFinal += stringSeparada[j] + Environment.NewLine;
-        }
-        string string1 = stringSeparada[0] + stringSeparada[1] + stringSeparada[2] +stringSeparada[3];
-        string final = stringFinal + Environment.NewLine;
-        File.WriteAllText("./final.txt", final);  
+        teste.RemoveAt(teste.Count - 1);
+        string result = String.Join(Environment.NewLine, teste.ToArray());
 
-}
+        //Console.WriteLine(result);
+        File.WriteAllText("./final.txt", result);  
+    }
     }
 }
