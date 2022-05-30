@@ -23,3 +23,11 @@ legenda.srt
 ```
 
 * Com a finalização dos procedimentos, o arquivo final será gerado com a nomenclatura de 'final.srt' na pasta raiz
+
+## Screenshots
+
+## Main rodando no terminal 
+![Screenshot](https://github.com/lucasgandac/mindminers/blob/master/images/main.png)
+
+## Testes passando (2/2)
+![Screenshot](https://github.com/lucasgandac/mindminers/blob/master/images/unit-tests.png)
